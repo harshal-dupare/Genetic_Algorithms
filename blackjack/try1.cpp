@@ -17,14 +17,14 @@ int* make_permuataion(int n)
 
 		// swapping len and rn 
 		tt=temp[rn];
-		temp[rn]=temp[len];
-		temp[len]=tt;
+		temp[rn]=temp[len-1];
+		temp[len-1]=tt;
 
 		idx++;
 		len--;
 
 	}
-	perm[idx]=temp[len];
+	perm[idx]=temp[len-1];
 
 
 	return perm;
@@ -110,7 +110,7 @@ int* runGA(int* ppl,int n,int bj_limit,int t)
         {
             sumofgambler = 0;
             sumofdealer = 0;
-            while(sumofgambler < ppl[i]+1)
+            while(sumofgambler < ppl[i])
             {
                 while(true)
                 {
@@ -168,7 +168,7 @@ int main()
 	int* scores=(int* )malloc(ppl_size*sizeof(int));
 	for(i=0;i<ppl_size;i++)
 	{
-		ppl[i]=rand()%bj_limit;
+		ppl[i]=rand()%bj_limit+1;
 	}
 	scores=runGA(ppl,ppl_size,bj_limit,epoch);
 
