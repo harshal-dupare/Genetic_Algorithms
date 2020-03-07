@@ -90,7 +90,7 @@ void crossover(int * ppl,int n,int c)
 	
 }
 
-int* runGA(int* ppl,int n,int bj_limit,int t)
+int* runBJ(int* ppl,int n,int bj_limit,int t)
 {
 	int size=1000,sumofgambler,sumofdealer,i;
 	int* scores = (int* )malloc(n*sizeof(int));
@@ -162,32 +162,56 @@ int* runGA(int* ppl,int n,int bj_limit,int t)
 
 int main()
 {
-	int ppl_size=30,bj_limit=21,t=6,epoch=1000,i;
+	int ppl_size=100,bj_limit=21,times=100,epoch=1000,i,t=0;
 
 	int* ppl=(int* )malloc(ppl_size*sizeof(int));
 	int* scores=(int* )malloc(ppl_size*sizeof(int));
+	float* avg_ppl = (float* )malloc(t*sizeof(float));
+	float* avg_score = (float* )malloc(t*sizeof(float));
 	for(i=0;i<ppl_size;i++)
 	{
 		ppl[i]=rand()%bj_limit+1;
 	}
-	scores=runGA(ppl,ppl_size,bj_limit,epoch);
+	scores=runBJ(ppl,ppl_size,bj_limit,epoch);
+	
+	int sum=0,s_sum=0;
+	for(i=0;i<ppl_size;i++)
+	{
+	    sum+=ppl[i];
+	    s_sum+=scores[i];
+	}
+	
+	avg_ppl[t]=(float)sum/ppl_size;
+	avg_score[t]=(float)s_sum/ppl_size;
+	t++;
 
-	while(t--)
+	while(t<times)
 	{
 
 		slection(scores,ppl,ppl_size);
 
-		crossover(ppl,ppl_size,20); // 10 crossovers
+		crossover(ppl,ppl_size,15); // 15 crossovers note not accounted for stopping crossover of one many times
 
-		mutate(ppl,ppl_size,5,2); // 5 times with 2 as mutation size
+		mutate(ppl,ppl_size,6,1); // 6 times with 1 as mutation size // note there is no limit on capping mutated  value by 21 , add it as if one had 20 and then mutated by 2 gives 22
 
-		scores=runGA(ppl,ppl_size,bj_limit,epoch);
+		scores=runBJ(ppl,ppl_size,bj_limit,epoch);
+		
+		int sum=0,s_sum=0;
+		for(i=0;i<ppl_size;i++)
+		{
+		    sum+=ppl[i];
+		    s_sum+=scores[i];
+		}
+		
+		avg_ppl[t]=(float)sum/ppl_size;
+		avg_score[t]=(float)s_sum/ppl_size;
+		t++;
 	}
 
-	for(i=0;i<ppl_size;i++)
+	for(i=0;i<t;i++)
 	{
-		cout<<" solution "<<i+1<<" is "<<ppl[i]<< "With score" << scores[i] <<endl;
+		cout<<" Average solution at "<<i+1<<"'th "<<"is "<<avg_ppl[i]<< " with avg score as " << avg_score[i] <<endl;
 	}
-
+	
 	return 0;
 }
