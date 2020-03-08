@@ -55,7 +55,6 @@ void slection(int* scores,int * ppl,int n)
 	
 }
 
-
 void mutate(int * ppl,int n,int m_times,int m_size)
 {
 	int p,i;
@@ -74,7 +73,6 @@ void mutate(int * ppl,int n,int m_times,int m_size)
 	}
 		
 }
-
 
 void crossover(int * ppl,int n,int c)
 {
@@ -101,22 +99,13 @@ void crossover(int * ppl,int n,int c)
 	
 }
 
-int* runBJ(int* ppl,int n,int bj_limit,int epoch)
+void runBJ(int* ppl,int* scores,int n,int bj_limit,int epoch,int* payoff_of_card,int* cards)
 {
-	int* payoff_of_card = (int* )malloc(14*sizeof(int));
 	int sumofgambler,sumofdealer,i,temp,k;
-	int* scores = (int* )malloc(n*sizeof(int));
-	int* cards = (int* )malloc(14*sizeof(int));
-
 	for(i=0;i<n;i++){scores[i]=0;}
 	//init payoff of each card only accounted for after 10 all have eleven value and aces have 1 value
-	for(i=0;i<14;i++)
-	{
-		if(i<10)payoff_of_card[i]=i+1;
-		else payoff_of_card[i]=11;
-	}
 
-	for(int i = 0; i<=n; i++)
+    for(i=0;i<n;i++)
     {
 		while(epoch--)
 		{
@@ -156,25 +145,33 @@ int* runBJ(int* ppl,int n,int bj_limit,int epoch)
 		}
 	}
 
-
-	return scores;
 }
 
 
 
 int main()
 {
-	int ppl_size=30,bj_limit=21,times=100,epoch=1000,i,t=0;
+	int ppl_size=30,bj_limit=21,times=10,epoch=10,i,t=0;
 
 	int* ppl=(int* )malloc(ppl_size*sizeof(int));
 	int* scores=(int* )malloc(ppl_size*sizeof(int));
 	float* avg_ppl = (float* )malloc(times*sizeof(float));
 	float* avg_score = (float* )malloc(times*sizeof(float));
+	
+	// defing the game and cards
+	int* payoff_of_card = (int* )malloc(14*sizeof(int));
+	int* cards = (int* )malloc(14*sizeof(int));
+	for(i=0;i<14;i++)
+	{
+		if(i<10)payoff_of_card[i]=i+1;
+		else payoff_of_card[i]=11;
+	}
+	
 	for(i=0;i<ppl_size;i++)
 	{
-		ppl[i]=rand()%bj_limit+1;
+		ppl[i]=(rand()%bj_limit)+1;
 	}
-	scores=runBJ(ppl,ppl_size,bj_limit,epoch);
+	runBJ(ppl,scores,ppl_size,bj_limit,epoch,payoff_of_card,cards);
 	
 	int sum=0,s_sum=0;
 	for(i=0;i<ppl_size;i++)
@@ -195,7 +192,7 @@ int main()
 
 		mutate(ppl,ppl_size,6,1); // 6 times with 1 as mutation size // note there is no limit on capping mutated  value by 21 , add it as if one had 20 and then mutated by 2 gives 22
 
-		scores=runBJ(ppl,ppl_size,bj_limit,epoch);
+		runBJ(ppl,scores,ppl_size,bj_limit,epoch,payoff_of_card,cards);
 		
 		int sum=0,s_sum=0;
 		for(i=0;i<ppl_size;i++)
@@ -203,6 +200,7 @@ int main()
 		    sum+=ppl[i];
 		    s_sum+=scores[i];
 		}
+	
 		avg_ppl[t]=(float)sum/ppl_size;
 		avg_score[t]=(float)s_sum/ppl_size;
 		t++;
