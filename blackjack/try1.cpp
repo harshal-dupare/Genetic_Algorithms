@@ -53,6 +53,7 @@ void slection(int* scores,int * ppl,int n)
 		}
 	}
 	
+	return;
 }
 
 void mutate(int * ppl,int n,int m_times,int m_size)
@@ -71,7 +72,8 @@ void mutate(int * ppl,int n,int m_times,int m_size)
 			if(ppl[i]+m_size<22)ppl[i]+=m_size;//bj_limit is assumed to be 21
 		}
 	}
-		
+	
+	return;
 }
 
 void crossover(int * ppl,int n,int c)
@@ -97,61 +99,61 @@ void crossover(int * ppl,int n,int c)
 		}
 	}
 	
+	return;
 }
+
 
 void runBJ(int* ppl,int* scores,int n,int bj_limit,int epoch,int* payoff_of_card,int* cards)
 {
-	int sumofgambler,sumofdealer,i,temp,k;
-	for(i=0;i<n;i++){scores[i]=0;}
-	//init payoff of each card only accounted for after 10 all have eleven value and aces have 1 value
+    int sumofgambler,sumofdealer,i,temp,k,s;
 
     for(i=0;i<n;i++)
     {
-		while(epoch--)
-		{
-			sumofgambler = 0;
-			sumofdealer = 0;
-			
-			// drawing the cards out of deck
-			for(k=0;k<14;k++){cards[k]=4;} // re_init cards
-			while(sumofgambler < ppl[i])
-			{
+	    s=0;
+	    while(epoch>0)
+	    {
+		    sumofgambler = 0;
+		    sumofdealer = 0;
 
-			    temp = rand()%13;
+		    // drawing the cards out of deck, re_init cards
+		    for(k=0;k<14;k++){cards[k]=4;}
+		    while(sumofgambler < ppl[i])
+		    {
+			    temp = rand()%13 ;
 			    while(cards[temp] == 0){temp = rand()%13;}
-			    cards[temp]--;
-				sumofgambler += payoff_of_card[temp];
-				
-			}
+			    cards[temp]=cards[temp]-1;
+			    sumofgambler += payoff_of_card[temp];
+		    }
+		    if(sumofgambler > bj_limit)
+		    {
+			    s-=1;
+			    continue;
+		    }
 
-			if(sumofgambler > bj_limit)
-			{
-				scores[i] -=1;
-				continue;
-			}
-			
-			for(k=0;k<14;k++){cards[k]=4;}
+		    for(k=0;k<14;k++){cards[k]=4;}
 		    while(sumofdealer < bj_limit && sumofdealer < sumofgambler)
 		    {
-    		
 			    temp = rand()%13;
 			    while(cards[temp] == 0){temp = rand()%13;}
-			    cards[temp]--;
+			    cards[temp]=cards[temp]-1;
 			    sumofdealer += payoff_of_card[temp];
 		    }
-		
-		    if(sumofdealer > bj_limit)scores[i] +=1;
-		    else if(sumofdealer > sumofgambler)scores[i] -=1;
-		}
-	}
+		    if(sumofdealer > bj_limit){s+=1;}
+		    else if(sumofdealer > sumofgambler){s-=1;}
+		    
+		    epoch--;
+	    }
+	    scores[i]=s;
+    }
 
+    return;
 }
 
 
 
 int main()
 {
-	int ppl_size=30,bj_limit=21,times=10,epoch=10,i,t=0;
+	int ppl_size=30,bj_limit=21,times=5,epoch=10,i,t=0;
 
 	int* ppl=(int* )malloc(ppl_size*sizeof(int));
 	int* scores=(int* )malloc(ppl_size*sizeof(int));
@@ -166,7 +168,7 @@ int main()
 		if(i<10)payoff_of_card[i]=i+1;
 		else payoff_of_card[i]=11;
 	}
-	
+	cout<<endl;
 	for(i=0;i<ppl_size;i++)
 	{
 		ppl[i]=(rand()%bj_limit)+1;
