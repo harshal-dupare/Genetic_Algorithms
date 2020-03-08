@@ -14,7 +14,7 @@ _________________________________________________________________
 
 > m_rate :: number of mutations / ppl_size
 
-> s_prop :: proportion of population select to go in next generation and reproduce
+> s_prop :: proportion of population selected to go in next generation and reproduce
 
 __________________________________________________________________
 ### Future updates
