@@ -2,7 +2,7 @@ _________________________________________________________________
 # Root finding with GA
 _________________________________________________________________
 
-* Finds root of a function `\f(x)` using fitness function as `f(x)^2`
+* Finds root of a function `f(x)` using fitness function as `f(x)^2`
 * need to specify the expected range of the root as `(x_l,x_u)`
 * there are some tunable hyperparameters 
 > ppl_size :: population size
