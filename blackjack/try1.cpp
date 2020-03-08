@@ -40,6 +40,13 @@ void slection(int* scores,int * ppl,int n)
 	for (i=0;i<n;i++)
 	{
 		if(scores[i]<scores[perm[i]])ppl[i]=ppl[perm[i]];
+		
+		// accounting for the same score then choose with 50% chance anyone
+		if(scores[i]==scores[perm[i]])
+		{
+			p=rand()%2;
+			if(p==0)ppl[i]=ppl[perm[i]];
+		}
 	}
 	
 }
@@ -54,11 +61,11 @@ void mutate(int * ppl,int n,int m_times,int m_size)
 		i=rand()%n;
 		if(p==0)
 		{
-			ppl[i]-=m_size;
+			if(ppl[i]-m_size>0)ppl[i]-=m_size;
 		}
 		else
 		{
-			ppl[i]+=m_size;
+			if(ppl[i]+m_size<22)ppl[i]+=m_size;//bj_limit is assumed to be 21
 		}
 	}
 		
@@ -90,69 +97,71 @@ void crossover(int * ppl,int n,int c)
 	
 }
 
-int* runBJ(int* ppl,int n,int bj_limit,int t)
+int* runBJ(int* ppl,int n,int bj_limit,int epoch)
 {
+	int* payoff_of_card = (int* )malloc(14*sizeof(int));
 	int size=1000,sumofgambler,sumofdealer,i;
 	int* scores = (int* )malloc(n*sizeof(int));
 	int* cards = (int* )malloc(14*sizeof(int));
-	for(i=0;i<n;i++)
-	{
-		scores[i]=0;
-	}
+	int temp;
+
+	for(i=0;i<n;i++){scores[i]=0;}
+	//init payoff of each card only accounted for after 10 all have eleven value and aces have 1 value
 	for(i=0;i<14;i++)
 	{
-		cards[i]=4;
+		if(i<10)payoff_of_card[i]=i+1;
+		else payoff_of_card[i]=11;
 	}
-	int shayad;
-    for(int i = 0; i<=n; i++)
-    {
-        for(int j = 0; j<t; j++)
-        {
-            sumofgambler = 0;
-            sumofdealer = 0;
-            while(sumofgambler < ppl[i])
-            {
-                while(true)
-                {
-                    shayad = rand()%13;
-                    while(cards[shayad] == 0)
-                        shayad = rand()%13;
-                    cards[shayad]--;
-                    break;
-                }
-                sumofgambler += shayad+1;
 
-            }
-
-         	for(int k=0;k<14;k++)
+	for(int i = 0; i<=n; i++)
+    	{
+		while(epoch--)
+		{
+			sumofgambler = 0;
+			sumofdealer = 0;
+			
+			// drawing the cards out of deck
+			for(k=0;k<14;k++){cards[k]=4;} // re_init cards
+			while(sumofgambler < ppl[i])
 			{
-				cards[k]=4;
-			} 
+
+				while(true)
+				{
+				    temp = rand()%13;
+				    while(cards[temp] == 0)
+					temp = rand()%13;
+				    cards[temp]--;
+				    break;
+				}
+				sumofgambler += payoff_of_card[temp];
+			}
+
+			for(int k=0;k<14;k++){cards[k]=4;} 
 
 
-            if(sumofgambler > bj_limit)
-            {
-                scores[i] -=1;
-                continue;
-            }
-            while(sumofdealer < bj_limit && sumofdealer < sumofgambler)
-            {
-                while(true)
-                {
-                    shayad = rand()%13;
-                    while(cards[shayad] == 0)
-                        shayad = rand()%13;
-                    cards[shayad]--;
-                    break;
-                }
-                sumofdealer += shayad+1;
-            }
-            if(sumofdealer > bj_limit)
-                scores[i] +=1;
-            else if(sumofdealer > sumofgambler)
-                scores[i] -=1;
-        }
-    }
+			    if(sumofgambler > bj_limit)
+			    {
+				scores[i] -=1;
+				continue;
+			    }
+			    while(sumofdealer < bj_limit && sumofdealer < sumofgambler)
+			    {
+				while(true)
+				{
+				    temp = rand()%13;
+				    while(cards[temp] == 0)
+					temp = rand()%13;
+				    cards[temp]--;
+				    break;
+				}
+				sumofdealer += payoff_of_card[temp];
+			    }
+			    if(sumofdealer > bj_limit)
+				scores[i] +=1;
+			    else if(sumofdealer > sumofgambler)
+				scores[i] -=1;
+			}
+	    }
 
 
 	return scores;
