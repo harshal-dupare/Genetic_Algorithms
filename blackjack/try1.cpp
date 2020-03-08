@@ -35,17 +35,21 @@ void slection(int* scores,int * ppl,int n)
 	int i;
 	// crewate copy of scores
 	int* perm = make_permuataion(n);
+	int* temp_ppl = (int* )malloc(n*sizeof(int));
+	
+	for(i=0;i<n;i++){temp_ppl[i]=ppl[i];}
 
 	// making the tournament between i and perm[i] (compitator of i) and selecting on the basis by just changing the ppl[i] by the ppl[perm[i]], i.e. just chaning the magic number
 	for (i=0;i<n;i++)
-	{
-		if(scores[i]<scores[perm[i]])ppl[i]=ppl[perm[i]];
+	{	
+		
+		if(scores[i]<scores[perm[i]])ppl[i]=temp_ppl[perm[i]];
 		
 		// accounting for the same score then choose with 50% chance anyone
 		if(scores[i]==scores[perm[i]])
 		{
 			p=rand()%2;
-			if(p==0)ppl[i]=ppl[perm[i]];
+			if(p==0)ppl[i]=temp_ppl[perm[i]];
 		}
 	}
 	
@@ -136,14 +140,13 @@ int* runBJ(int* ppl,int n,int bj_limit,int epoch)
 				sumofgambler += payoff_of_card[temp];
 			}
 
-			for(int k=0;k<14;k++){cards[k]=4;} 
-
-
-			    if(sumofgambler > bj_limit)
+			if(sumofgambler > bj_limit)
 			    {
 				scores[i] -=1;
 				continue;
 			    }
+			
+			for(int k=0;k<14;k++){cards[k]=4;}
 			    while(sumofdealer < bj_limit && sumofdealer < sumofgambler)
 			    {
 				while(true)
@@ -156,6 +159,7 @@ int* runBJ(int* ppl,int n,int bj_limit,int epoch)
 				}
 				sumofdealer += payoff_of_card[temp];
 			    }
+			
 			    if(sumofdealer > bj_limit)
 				scores[i] +=1;
 			    else if(sumofdealer > sumofgambler)
