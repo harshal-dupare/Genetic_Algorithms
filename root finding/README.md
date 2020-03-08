@@ -2,11 +2,10 @@ _________________________________________________________________
 # Root finding with GA
 _________________________________________________________________
 
-*Finds root of a function `f(x)` 
-*using ranking function as `f(x)^2` (closer to `0`, better the rank in sorting higher the fitness)
-*need to specify the expected range of the root as `(x_l,x_u)`
-*there are some tunable hyperparameters 
-
+* finds root of a function `f(x)` 
+* uses ranking function as `f(x)^2` (closer to `0` => better the rank in sorting => higher the fitness)
+* need to specify the expected range of the root as `(x_l,x_u)`
+* there are some tunable hyperparameters 
 > ppl_size :: population size
 
 > generations :: number of generations 
