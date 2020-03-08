@@ -32,7 +32,7 @@ int* make_permuataion(int n)
 
 void slection(int* scores,int * ppl,int n)
 {
-	int i;
+	int i,p;
 	// crewate copy of scores
 	int* perm = make_permuataion(n);
 	int* temp_ppl = (int* )malloc(n*sizeof(int));
@@ -104,10 +104,9 @@ void crossover(int * ppl,int n,int c)
 int* runBJ(int* ppl,int n,int bj_limit,int epoch)
 {
 	int* payoff_of_card = (int* )malloc(14*sizeof(int));
-	int size=1000,sumofgambler,sumofdealer,i;
+	int sumofgambler,sumofdealer,i,temp,k;
 	int* scores = (int* )malloc(n*sizeof(int));
 	int* cards = (int* )malloc(14*sizeof(int));
-	int temp;
 
 	for(i=0;i<n;i++){scores[i]=0;}
 	//init payoff of each card only accounted for after 10 all have eleven value and aces have 1 value
@@ -118,7 +117,7 @@ int* runBJ(int* ppl,int n,int bj_limit,int epoch)
 	}
 
 	for(int i = 0; i<=n; i++)
-    	{
+    {
 		while(epoch--)
 		{
 			sumofgambler = 0;
@@ -129,43 +128,33 @@ int* runBJ(int* ppl,int n,int bj_limit,int epoch)
 			while(sumofgambler < ppl[i])
 			{
 
-				while(true)
-				{
-				    temp = rand()%13;
-				    while(cards[temp] == 0)
-					temp = rand()%13;
-				    cards[temp]--;
-				    break;
-				}
+			    temp = rand()%13;
+			    while(cards[temp] == 0){temp = rand()%13;}
+			    cards[temp]--;
 				sumofgambler += payoff_of_card[temp];
+				
 			}
 
 			if(sumofgambler > bj_limit)
-			    {
+			{
 				scores[i] -=1;
 				continue;
-			    }
-			
-			for(int k=0;k<14;k++){cards[k]=4;}
-			    while(sumofdealer < bj_limit && sumofdealer < sumofgambler)
-			    {
-				while(true)
-				{
-				    temp = rand()%13;
-				    while(cards[temp] == 0)
-					temp = rand()%13;
-				    cards[temp]--;
-				    break;
-				}
-				sumofdealer += payoff_of_card[temp];
-			    }
-			
-			    if(sumofdealer > bj_limit)
-				scores[i] +=1;
-			    else if(sumofdealer > sumofgambler)
-				scores[i] -=1;
 			}
-	    }
+			
+			for(k=0;k<14;k++){cards[k]=4;}
+		    while(sumofdealer < bj_limit && sumofdealer < sumofgambler)
+		    {
+    		
+			    temp = rand()%13;
+			    while(cards[temp] == 0){temp = rand()%13;}
+			    cards[temp]--;
+			    sumofdealer += payoff_of_card[temp];
+		    }
+		
+		    if(sumofdealer > bj_limit)scores[i] +=1;
+		    else if(sumofdealer > sumofgambler)scores[i] -=1;
+		}
+	}
 
 
 	return scores;
@@ -175,12 +164,12 @@ int* runBJ(int* ppl,int n,int bj_limit,int epoch)
 
 int main()
 {
-	int ppl_size=100,bj_limit=21,times=100,epoch=1000,i,t=0;
+	int ppl_size=30,bj_limit=21,times=100,epoch=1000,i,t=0;
 
 	int* ppl=(int* )malloc(ppl_size*sizeof(int));
 	int* scores=(int* )malloc(ppl_size*sizeof(int));
-	float* avg_ppl = (float* )malloc(t*sizeof(float));
-	float* avg_score = (float* )malloc(t*sizeof(float));
+	float* avg_ppl = (float* )malloc(times*sizeof(float));
+	float* avg_score = (float* )malloc(times*sizeof(float));
 	for(i=0;i<ppl_size;i++)
 	{
 		ppl[i]=rand()%bj_limit+1;
@@ -193,7 +182,6 @@ int main()
 	    sum+=ppl[i];
 	    s_sum+=scores[i];
 	}
-	
 	avg_ppl[t]=(float)sum/ppl_size;
 	avg_score[t]=(float)s_sum/ppl_size;
 	t++;
@@ -215,13 +203,12 @@ int main()
 		    sum+=ppl[i];
 		    s_sum+=scores[i];
 		}
-		
 		avg_ppl[t]=(float)sum/ppl_size;
 		avg_score[t]=(float)s_sum/ppl_size;
 		t++;
 	}
 
-	for(i=0;i<t;i++)
+	for(i=0;i<times;i++)
 	{
 		cout<<" Average solution at "<<i+1<<"'th "<<"is "<<avg_ppl[i]<< " with avg score as " << avg_score[i] <<endl;
 	}
