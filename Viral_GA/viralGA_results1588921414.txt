@@ -1,0 +1,396 @@
+model parameters : 
+HYPERPARAMETERS  
+lambda : 0.7
+gradient epsilon : 0.001
+step epsilon : 0.001
+timeline : None
+
+PARAMETERS  
+population size : 10
+statistics used : True
+generations : 10
+child set size : 5
+crossover set size : 30
+
+Population
+
+decision variable : [0.12336471 0.62548611 0.5684627 ]
+decision gradient : [-0.69538351  0.03103824  0.71796824]
+objective variable : [-7.78934412 -8.40653546 42.61384962 -0.50702388]
+objective gradient : [-2.82622375 70.4284865  -4.58172568  6.84443584]
+fitness : None
+ 
+decision variable : [0.24781525 0.02115671 0.11109767]
+decision gradient : [-9.99929262e-01  1.18722311e-02 -7.21515351e-04]
+objective variable : [  0.66836823 -24.76132039   0.03563246  -0.04742244]
+objective gradient : [-7.57341703e+00  9.99928063e+01  5.81214356e-02  2.36669685e-01]
+fitness : None
+ 
+decision variable : [0.37946771 0.2776073  0.41453644]
+decision gradient : [ 0.51234501 -0.38611088  0.76708603]
+objective variable : [ -1.36605149 -37.72292199   7.94392718  -1.10340765]
+objective gradient : [ 11.00934765 -51.91935601 -29.7725721    1.02846799]
+fitness : None
+ 
+decision variable : [0.42116464 0.5538109  0.40057824]
+decision gradient : [-0.61111616 -0.6654384   0.42863594]
+objective variable : [ -4.45873131 -39.69190927  34.44278925  -2.78348645]
+objective gradient : [  1.0206128   49.90694111 -87.38794079   8.56179336]
+fitness : None
+ 
+decision variable : [0.72288072 0.10675848 0.6105753 ]
+decision gradient : [0.58643021 0.54804658 0.59644326]
+objective variable : [  6.57260294 -72.17381098  -1.63750859  -0.43184258]
+objective gradient : [  5.71741439 -58.46737687   4.82184093  -4.86331817]
+fitness : None
+ 
+decision variable : [0.13434523 0.32480358 0.21713211]
+decision gradient : [-0.50665677 -0.83669707 -0.2079349 ]
+objective variable : [ -3.90829049 -13.11680211  12.00299347  -0.49220338]
+objective gradient : [  8.79731785  47.77191059 -62.04654726   3.45555971]
+fitness : None
+ 
+decision variable : [0.73595269 0.09267083 0.51286449]
+decision gradient : [-0.52801754 -0.71266826 -0.46184568]
+objective variable : [  7.02224758 -73.50017735  -0.75691884  -0.48181524]
+objective gradient : [ -2.48137763  52.66171552 -10.40643172   6.7300837 ]
+fitness : None
+ 
+decision variable : [0.19122502 0.31251852 0.88222859]
+decision gradient : [ 0.69419228  0.71963813 -0.01476604]
+objective variable : [ -3.33778988 -18.72362133   2.32094008   0.40823784]
+objective gradient : [ -5.36861253 -67.21776221  52.23455997  -4.65516023]
+fitness : None
+ 
+decision variable : [0.43983856 0.03914399 0.7953094 ]
+decision gradient : [-0.91120984 -0.33355913  0.24173319]
+objective variable : [  2.55205929 -43.83919511  -6.34919684   0.74086027]
+objective gradient : [-7.62648669 91.16296025 -8.95088734  2.94867634]
+fitness : None
+ 
+decision variable : [0.70103652 0.06113114 0.42979354]
+decision gradient : [0.16796355 0.47221335 0.86533393]
+objective variable : [  6.66303687 -70.02515845  -0.59467109  -0.27143752]
+objective gradient : [ -2.43282618 -16.62810782   0.43391375  -3.30384228]
+fitness : None
+ 
+Child Population
+
+decision variable : [0.12284125 0.62589598 0.56924035]
+decision gradient : [-0.65215656  0.14454616  0.74417621]
+objective variable : [-7.79645003 -8.34400796 42.66303269 -0.50207931]
+objective gradient : [-4.12723704 68.89634606 11.407276    6.36332218]
+fitness : None
+ 
+decision variable : [0.122946   0.62578643 0.56962796]
+decision gradient : [-0.59904036  0.09460043  0.79511094]
+objective variable : [-7.79456221 -8.35709821 42.64236948 -0.50208665]
+objective gradient : [-3.27488917 62.36743749  3.55531599  6.0984671 ]
+fitness : None
+ 
+decision variable : [0.12290246 0.62560837 0.56964721]
+decision gradient : [-0.60554134  0.05130503  0.79415835]
+objective variable : [-7.79240413 -8.3571024  42.61650148 -0.50141467]
+objective gradient : [-2.73530921 61.95490626 -2.66766405  6.21724412]
+fitness : None
+ 
+decision variable : [0.12283112 0.62631826 0.56834586]
+decision gradient : [-0.76742821  0.32295473  0.55385394]
+objective variable : [-7.80215588 -8.33279324 42.73511307 -0.50421541]
+objective gradient : [-6.90672847 84.78429438 39.56047881  6.69191127]
+fitness : None
+ 
+decision variable : [0.12202928 0.62623301 0.56906928]
+decision gradient : [-0.75552682  0.16334194  0.6344278 ]
+objective variable : [-7.8038481  -8.25457172 42.71372203 -0.49630278]
+objective gradient : [-4.75388924 79.68109096 15.51952098  6.98964009]
+fitness : None
+ 
+decision variable : [0.24596143 0.02186901 0.1121886 ]
+decision gradient : [-0.98296473  0.10669596  0.149654  ]
+objective variable : [  0.64559603 -24.57573953   0.03864603  -0.04880292]
+objective gradient : [-8.59576571e+00  9.83237948e+01  4.67090564e-01 -6.94766507e-03]
+fitness : None
+ 
+decision variable : [0.24689288 0.02197899 0.11153747]
+decision gradient : [-0.97194996  0.20954293  0.1067944 ]
+objective variable : [  0.65092208 -24.66900242   0.03950674  -0.04965225]
+objective gradient : [-9.88755451 97.21463852  1.01436637 -0.35430299]
+fitness : None
+ 
+decision variable : [0.24784879 0.02195193 0.11106741]
+decision gradient : [-0.91253415  0.40869519 -0.01580075]
+objective variable : [  0.65827375 -24.76467916   0.03958876  -0.05000456]
+objective gradient : [-12.08882141  91.25098688   2.09000618  -1.05714757]
+fitness : None
+ 
+decision variable : [0.2472175  0.02237543 0.11168206]
+decision gradient : [-0.94591617  0.29450572  0.13604775]
+objective variable : [  0.64820319 -24.70143777   0.04146124  -0.05096781]
+objective gradient : [-10.80335425  94.61668906   1.46177293  -0.6193894 ]
+fitness : None
+ 
+decision variable : [0.24741649 0.0217838  0.11080787]
+decision gradient : [-0.95384184  0.2740152  -0.12288783]
+objective variable : [  0.65719593 -24.72149617   0.03886308  -0.04943199]
+objective gradient : [-10.65301384  95.36212913   1.43811203  -0.65111666]
+fitness : None
+ 
+decision variable : [0.37992697 0.27739603 0.41515246]
+decision gradient : [ 0.5325869  -0.35050181  0.7703893 ]
+objective variable : [ -1.3579504  -37.76918791   7.92631951  -1.10324266]
+objective gradient : [ 10.78517993 -53.86535621 -27.52246154   0.7887706 ]
+fitness : None
+ 
+decision variable : [0.37948352 0.27757759 0.41601228]
+decision gradient : [ 0.37981581 -0.29002905  0.8784208 ]
+objective variable : [ -1.36519013 -37.72429856   7.93213098  -1.10145003]
+objective gradient : [  8.27224088 -38.44118655 -24.43242203   1.17668692]
+fitness : None
+ 
+decision variable : [0.38114049 0.27688733 0.41590802]
+decision gradient : [ 0.5837638  -0.3681743   0.72364875]
+objective variable : [ -1.33733259 -37.8914848    7.88881875  -1.10414123]
+objective gradient : [ 11.61098787 -59.02481048 -28.30871061   0.64392783]
+fitness : None
+ 
+decision variable : [0.38004948 0.27833434 0.41568744]
+decision gradient : [ 0.52136718 -0.13452206  0.84266249]
+objective variable : [ -1.36864482 -37.77932888   7.98269486  -1.10764289]
+objective gradient : [  7.86575653 -52.27336086 -14.2848173   -0.15217881]
+fitness : None
+ 
+decision variable : [0.38113148 0.27698779 0.41422811]
+decision gradient : [ 0.72003628 -0.42300006  0.5501079 ]
+objective variable : [ -1.33907758 -37.89067592   7.90647499  -1.10673199]
+objective gradient : [ 13.84965387 -72.8004735  -30.60385543   0.20213203]
+fitness : None
+ 
+decision variable : [0.41921218 0.55397958 0.40074906]
+decision gradient : [-0.79810631 -0.48409902  0.35871222]
+objective variable : [ -4.48550202 -39.4937657   34.46321193  -2.77014015]
+objective gradient : [ -3.66269222  71.65633674 -63.89703512   8.81957778]
+fitness : None
+ 
+decision variable : [0.41924656 0.5535255  0.39966586]
+decision gradient : [-0.79333373 -0.57625432  0.19634806]
+objective variable : [ -4.47938324 -39.50511103  34.41212576  -2.76923509]
+objective gradient : [ -2.43805662  69.61134118 -74.54550865   9.0828627 ]
+fitness : None
+ 
+decision variable : [0.41993434 0.55240924 0.40196233]
+decision gradient : [-0.58908351 -0.64948899  0.48077508]
+objective variable : [ -4.4557549  -39.59234599  34.25580933  -2.76528313]
+objective gradient : [  1.12342532  48.06655873 -85.49632813   8.36080155]
+fitness : None
+ 
+decision variable : [0.42084413 0.55287581 0.40107147]
+decision gradient : [-0.52234023 -0.73025524  0.44032712]
+objective variable : [ -4.45052459 -39.67561128  34.32069938  -2.77546007]
+objective gradient : [  2.99076168  39.99730983 -95.55653121   8.28341433]
+fitness : None
+ 
+decision variable : [0.4202252  0.55345969 0.40105364]
+decision gradient : [-0.69475006 -0.57146924  0.43674393]
+objective variable : [ -4.4659269  -39.6038392   34.39509662  -2.77422312]
+objective gradient : [ -1.23485551  59.88103651 -75.44288028   8.64993792]
+fitness : None
+ 
+decision variable : [0.72301241 0.10758365 0.61206372]
+decision gradient : [0.44998109 0.54857414 0.70468676]
+objective variable : [  6.56502941 -72.1866075   -1.63883539  -0.43702183]
+objective gradient : [  2.77276797 -44.80115104   3.31372776  -4.4799056 ]
+fitness : None
+ 
+decision variable : [0.72322997 0.10716595 0.61174297]
+decision gradient : [0.50546862 0.49183028 0.70894602]
+objective variable : [  6.57511503 -72.20847316  -1.64447301  -0.43399406]
+objective gradient : [  4.71892953 -50.35701223   1.80416649  -4.01560126]
+fitness : None
+ 
+decision variable : [0.72422214 0.10738793 0.61204025]
+decision gradient : [0.60845414 0.47804615 0.63344726]
+objective variable : [  6.59383064 -72.30760941  -1.64333152  -0.4369146 ]
+objective gradient : [  7.13732172 -60.67064378   2.58126178  -4.17760386]
+fitness : None
+ 
+decision variable : [0.72370941 0.10775866 0.61114543]
+decision gradient : [0.58964354 0.5991084  0.54165452]
+objective variable : [  6.57769604 -72.25645227  -1.62112138  -0.44134643]
+objective gradient : [  5.12705424 -58.79027846   7.00256808  -5.46278472]
+fitness : None
+ 
+decision variable : [0.72324916 0.10723585 0.61134966]
+decision gradient : [0.52787572 0.53436283 0.66015421]
+objective variable : [  6.57454413 -72.21045555  -1.63701994  -0.43540747]
+objective gradient : [  4.64306403 -52.60115456   3.59135549  -4.53915576]
+fitness : None
+ 
+decision variable : [0.13315719 0.32509689 0.21799236]
+decision gradient : [-0.74709471 -0.66384804  0.03398933]
+objective variable : [ -3.91669856 -12.99683526  12.02334259  -0.487116  ]
+objective gradient : [  5.6607636   72.44172354 -49.64915023   4.32302833]
+fitness : None
+ 
+decision variable : [0.13522822 0.32383317 0.21569338]
+decision gradient : [-0.25707557 -0.86454381 -0.43182885]
+objective variable : [ -3.89239246 -13.20867276  11.93320971  -0.49518865]
+objective gradient : [ 10.11077897  22.70481276 -63.53243531   2.31141005]
+fitness : None
+ 
+decision variable : [0.13276359 0.32388821 0.21556506]
+decision gradient : [-0.57831636 -0.73343549 -0.35724301]
+objective variable : [ -3.90304114 -12.96204623  11.93753987  -0.48499355]
+objective gradient : [  7.16484883  55.28313894 -53.93492606   3.45738911]
+fitness : None
+ 
+decision variable : [0.13385394 0.32400676 0.21694359]
+decision gradient : [-0.50901669 -0.83604069 -0.20478765]
+objective variable : [ -3.89994598 -13.0704282   11.94388325  -0.48886893]
+objective gradient : [  8.78744113  48.03168392 -61.85079157   3.45597128]
+fitness : None
+ 
+decision variable : [0.13332921 0.32413984 0.21660758]
+decision gradient : [-0.59895912 -0.75360364 -0.27079424]
+objective variable : [ -3.90384617 -13.01756278  11.95441206  -0.48711459]
+objective gradient : [  7.35230744  57.28911941 -55.62741652   3.64296849]
+fitness : None
+ 
+decision variable : [0.73535118 0.09262104 0.51271221]
+decision gradient : [-0.70882154 -0.56196033 -0.42634799]
+objective variable : [  7.00958925 -73.44005786  -0.75642072  -0.48085197]
+objective gradient : [-8.40923152 70.76038936 -7.57532814  5.55635575]
+fitness : None
+ 
+decision variable : [0.73490119 0.09135955 0.51353325]
+decision gradient : [-0.58860289 -0.77507308 -0.22980069]
+objective variable : [  7.01622895 -73.39500782  -0.79152742  -0.46697785]
+objective gradient : [ -2.94176215  58.7601523  -13.85896485   7.7394177 ]
+fitness : None
+ 
+decision variable : [0.73710991 0.09093098 0.51211476]
+decision gradient : [-0.24387295 -0.83946054 -0.48562535]
+objective variable : [  7.07028548 -73.61616971  -0.78598823  -0.46770501]
+objective gradient : [  5.42391908  24.23675258 -12.52184991   7.57424585]
+fitness : None
+ 
+decision variable : [0.73595362 0.09286564 0.51168067]
+decision gradient : [-0.43452565 -0.52954853 -0.72853676]
+objective variable : [  7.0194989  -73.50047021  -0.7406676   -0.48552315]
+objective gradient : [-2.85246625 43.27805538 -3.86303367  4.4558831 ]
+fitness : None
+ 
+decision variable : [0.73568869 0.09196612 0.51266424]
+decision gradient : [-0.47709177 -0.77979327 -0.40534665]
+objective variable : [  7.02554108 -73.47386938  -0.76983221  -0.47506945]
+objective gradient : [ -0.47007317  47.57558982 -12.28007497   7.39218071]
+fitness : None
+ 
+decision variable : [0.19211868 0.3140759  0.88264958]
+decision gradient : [0.63931512 0.76668699 0.05888325]
+objective variable : [ -3.35281291 -18.80812239   2.42038467   0.4018404 ]
+objective gradient : [ -6.26429202 -61.53677506  53.66295493  -4.37441807]
+fitness : None
+ 
+decision variable : [0.19227115 0.31256493 0.88306189]
+decision gradient : [0.79826428 0.56968694 0.1955273 ]
+objective variable : [ -3.33220886 -18.82794117   2.29897314   0.40609486]
+objective gradient : [ -2.75277075 -78.0464853   35.04785209  -4.15152507]
+fitness : None
+ 
+decision variable : [0.19068409 0.31371778 0.88239796]
+decision gradient : [0.42451886 0.90482997 0.03265675]
+objective variable : [ -3.35644519 -18.665816     2.40216822   0.40791437]
+objective gradient : [ -9.32508523 -39.64010935  64.39111676  -3.89219531]
+fitness : None
+ 
+decision variable : [0.19057466 0.31345586 0.88178612]
+decision gradient : [ 0.40224417  0.90375441 -0.1463817 ]
+objective variable : [ -3.35378838 -18.65579242   2.40183277   0.40737821]
+objective gradient : [ -9.47593023 -37.4555453   69.6855397   -4.27299369]
+fitness : None
+ 
+decision variable : [0.19193059 0.31459633 0.88157265]
+decision gradient : [ 0.59469568  0.79783507 -0.09897597]
+objective variable : [ -3.36087742 -18.7878928    2.49067252   0.39843838]
+objective gradient : [ -6.96213731 -56.99396954  60.80010031  -4.69273092]
+fitness : None
+ 
+decision variable : [0.43797391 0.03968815 0.79489378]
+decision gradient : [-0.9803532  -0.16132964  0.11349166]
+objective variable : [  2.52034994 -43.6528024   -6.33402371   0.73771119]
+objective gradient : [-10.7466736   98.0549522   -4.26474627   1.69523998]
+fitness : None
+ 
+decision variable : [0.43932139 0.03810456 0.79478514]
+decision gradient : [-0.84514169 -0.53211371  0.05089712]
+objective variable : [  2.55864697 -43.7875796   -6.34551608   0.74579891]
+objective gradient : [-4.20029299 84.52054046 -5.88396396  3.57417731]
+fitness : None
+ 
+decision variable : [0.43940154 0.03987189 0.79429866]
+decision gradient : [-0.99245616 -0.09163157 -0.08145195]
+objective variable : [  2.53663095 -43.79567313  -6.31769921   0.73449453]
+objective gradient : [-11.89290847  99.23022798   1.16316147   0.84095115]
+fitness : None
+ 
+decision variable : [0.4382992  0.03792792 0.79552721]
+decision gradient : [-0.88247439 -0.42343753  0.20479161]
+objective variable : [  2.54763524 -43.68522684  -6.36534567   0.74909673]
+objective gradient : [-6.04630704 88.28240241 -8.72545007  3.33586865]
+fitness : None
+ 
+decision variable : [0.44001815 0.03789308 0.79415762]
+decision gradient : [-0.80037657 -0.59792533 -0.04338939]
+objective variable : [  2.57046103 -43.85737127  -6.33192828   0.74515525]
+objective gradient : [-2.79144606 80.026591   -4.10364424  3.70408722]
+fitness : None
+ 
+decision variable : [0.7021373  0.06083455 0.43103743]
+decision gradient : [0.33801066 0.29973469 0.89213671]
+objective variable : [  6.69031011 -70.13501717  -0.60779604  -0.26797407]
+objective gradient : [  3.40348705 -33.63206147  -2.25762088  -1.83187673]
+fitness : None
+ 
+decision variable : [0.70219931 0.06153471 0.43034985]
+decision gradient : [0.40772889 0.45583953 0.79118106]
+objective variable : [  6.6823769  -70.14132749  -0.5929812   -0.2753167 ]
+objective gradient : [  2.82402434 -40.61829814   0.76442747  -3.45153554]
+fitness : None
+ 
+decision variable : [0.70033576 0.06138758 0.42955035]
+decision gradient : [-0.21940613  0.62566693  0.74859992]
+objective variable : [  6.64492423 -69.95512087  -0.58931143  -0.27353362]
+objective gradient : [-12.59296678  22.09141854   3.49592758  -4.53892426]
+fitness : None
+ 
+decision variable : [0.70129307 0.06166188 0.43078559]
+decision gradient : [0.18432967 0.46867914 0.8639227 ]
+objective variable : [  6.66173216 -70.05062044  -0.5943222   -0.27517956]
+objective gradient : [ -2.041461   -18.26477606   0.42243951  -3.28684678]
+fitness : None
+ 
+decision variable : [0.70101363 0.06214098 0.43028553]
+decision gradient : [0.11646231 0.62711442 0.77017143]
+objective variable : [  6.64952588 -70.02275602  -0.58389501  -0.27997761]
+objective gradient : [ -5.54899978 -11.49092215   3.45084448  -4.79956226]
+fitness : None
+ 
+Crossover Population
+
+Population Stats
+
+Population Population size:10
+objective mean :[  0.26181076 -40.19614524   9.00218367  -0.4969541 ]
+objective variance :[ 25.20172439 548.43158046 244.83389608   0.82051021]
+decision mean :[0.4097091  0.24150876 0.49425785]
+decision variance:[0.05230998 0.04206077 0.05034331]
+
+Child Stats
+
+Child Population size:50
+objective mean :[  0.25966758 -40.17366712   9.00333139  -0.49549322]
+objective variance :[ 25.2389919  549.81549315 244.71789209   0.81422131]
+decision mean :[0.40948828 0.24161061 0.49451387]
+decision variance:[0.05243287 0.04203965 0.05032582]
+
