@@ -1,9 +1,11 @@
 import numpy as np 
 import scipy
+import functools
 from problem_space import objective_space
 from problem_space import decision_space
 from problem_space import fitness_space
 from solution.virus import virus
+from problem_space.decision_space import constrains
 
 
 ###############################
@@ -73,10 +75,10 @@ class Triggers:
 
 
 class Population:
-	def __init__(self, model, use_fitness=False, initial_parameter_stats = None, child_parameter_stats = None, crossover_parameter_stats = None):
+	def __init__(self, model, use_fitness=False, initial_parameter_stats = None, child_parameter_stats = None, crossover_parameter_stats = None,compare=None):
 
 		self.model = model
-
+		self.compare = compare
 		self.ppl_size = model.parameters.ppl_size
 		self.ppl_stats = None
 
@@ -117,10 +119,11 @@ class Population:
 
 
 	## children
-	def generate_child(self):
+	def generate_child(self,select_size):
 		PPL_CHILD_SET = []
 		for v in self.ppl:
-			PPL_CHILD_SET += v.children(self.model,count=self.child_set_size, child_parameter_stats=self.child_parameter_stats, use_fitness=self.use_fitness)
+			PPL_CHILD_SET += self.sorting(v.children(self.model,count=self.child_set_size, child_parameter_stats=self.child_parameter_stats, use_fitness=self.use_fitness))[0:select_size]
+
 		self.child_set = PPL_CHILD_SET
 
 	def update_child_stats(self):
@@ -131,8 +134,20 @@ class Population:
 
 	## 	Crossover
 	def generate_crossover(self):
-		pass
-
+		n=len(self.ppl)
+		PPL_crossover_set=[]
+		for i in range(self.model.parameters.crossover_set_size):
+			r1=np.random.randint(n)
+			r2=np.random.randint(n-1)+1
+			r2=(r1+r2)%n
+			PPL_crossover_set.append(virus(model=self.model, make_as = "crossover", use_fitness=self.use_fitness,parent1=self.ppl[r1], parent2 = self.ppl[r2], crossover_parameter_stats = self.crossover_parameter_stats))
+		temp=[]
+		for v in PPL_crossover_set:
+			if constrains(v.var_decision,v.var_objective,self.model):
+				temp.append(v)
+			
+		if len(temp)>0:
+			self.crossover_set=temp
 
 	def update_crossover_stats(self):
 		if self.use_stats:
@@ -157,16 +172,47 @@ class Population:
 
 
 	def selection(self,trigger):
-		pass
+		## handelig ppl
+		## selection sizes baised on trigger
+		selected_ppl_size=int(0.5*self.ppl_size)
+		self.ppl=self.sorting(self.ppl)[0:selected_ppl_size]
 
-	
-	def compare(self,v1,v2):
-		pass
+		## handeling child set
+		## how many to selctet from child set
+		selected_child_size=int(0.5*len(self.child_set))
+		self.ppl=self.sorting(self.ppl)[0:selected_child_size]
+			
+		## handeling crossover set
+		## how many to selctet from crossover set
+		selected_crossover_size=int(0.5*len(self.child_set))
+		self.ppl=self.sorting(self.ppl)[0:selected_crossover_size]
 
+		self.ppl=self.ppl+self.child_set+self.crossover_set
+
+		pass
+		
+		
 		
 
-	def sorting(self,use_fitness):
-		pass
+	## Using counting pereto optima
+	def defalt_compare(self,v1,v2):
+		count = 0 
+		n =  len(v1.var_objective)
+		for i in range(len(v1.var_objective)):
+			if v1.var_objective[i] <= v2.var_objective[i]:
+				count +=1
+
+		if count > (n/2):
+			return -1
+		if count == (n/2):
+			return 0
+		return 1
+
+	def sorting(self,arr,use_fitness=False):
+		if self.compare != None:
+			return sorted(arr, key=functools.cmp_to_key(self.compare))
+		else:
+			return sorted(arr, key=functools.cmp_to_key(self.defalt_compare))
 
 	def __repr__(self):
 		s="Population\n\n"
@@ -185,6 +231,6 @@ class Population:
 			s+=self.ppl_stats.__repr__()
 		if self.child_stats.used:
 			s+=self.child_stats.__repr__()
-		'''if self.crossover_stats.used:
-			s+=self.crossover_stats.__repr__()'''
+		if self.crossover_stats.used:
+			s+=self.crossover_stats.__repr__()
 		return s

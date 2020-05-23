@@ -43,16 +43,15 @@ class virus:
 		elif make_as == "crossover":
 
 			# numpy arrays
-			self.var_decision = decision_space.crossover_solution(parent1,parent2,crossover_parameter_stats,model)
+			self.var_decision , self.grad_decision = decision_space.crossover_solution(parent1,parent2,crossover_parameter_stats,model)
 			self.var_objective = objective_space.function(self.var_decision,model)
-			## looping until constrains are satisfied
+			"""## looping until constrains are satisfied
 			while not constrains(self.var_decision,self.var_objective,model):
 				self.var_decision = decision_space.crossover_solution(parent1,parent2,crossover_parameter_stats,model)
-				self.var_objective = objective_space.function(self.var_decision,model)
+				self.var_objective = objective_space.function(self.var_decision,model)"""
 
 			self.dimension = [self.var_decision.shape,self.var_objective.shape]
 
-			self.grad_decision = decision_space.crossover_gradient(parent1,parent2,crossover_parameter_stats,model)
 			self.grad_objective = objective_space.gradient(self.var_decision,self.var_objective,self.grad_decision,model)
 
 			self.set_fitness(use_fitness)

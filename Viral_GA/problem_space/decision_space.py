@@ -43,11 +43,10 @@ def random_gradient(initial_parameter_stat,model):
 
 
 def crossover_solution(parent1,parent2,crossover_parameter_stat,model):
-	pass
-
-def crossover_gradient(parent1,parent2,crossover_parameter_stat,model):
-	pass
-
+	xd=(parent1.var_decision+parent2.var_decision)/2
+	gd=(parent1.grad_decision +parent2.grad_decision)/2
+	gd/=np.sqrt(np.sum(gd**2))
+	return xd,gd
 
 
 def child_solution(parent,child_parameter_stat,model):

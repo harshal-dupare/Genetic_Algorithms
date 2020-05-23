@@ -1,5 +1,6 @@
 import time
 import numpy as np
+import functools
 from solution.population import Population, Triggers
 from problem_space.decision_space import problem_range
 from architecture.model_definition import hyper_parameters, parameters,  model_parameters
@@ -41,7 +42,7 @@ trigger = Triggers(PPL)
 
 for i in range(params.generations):
 
-	PPL.generate_child()
+	PPL.generate_child(2)
 	PPL.update_child_stats()
 
 	PPL.generate_crossover()
@@ -87,7 +88,7 @@ f.write("population  statistics : \n")
 
 f.write(PPL.stats.___repr__())
 
-
+f.close()
 #####################################
 ##         STORING RESULTS         ##
 #####################################
