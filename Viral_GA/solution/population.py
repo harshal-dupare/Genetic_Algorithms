@@ -6,6 +6,7 @@ from problem_space import decision_space
 from problem_space import fitness_space
 from solution.virus import virus
 from problem_space.decision_space import constrains
+from solution.vertexcover import vertex_cover
 
 
 ###############################
@@ -22,6 +23,11 @@ class Stats:
 
 		else:
 			self.used = False
+			self.size=0
+			self.avg_objective = 'None'
+			self.avg_decision = 'None'
+			self.variance_obj = 'None'
+			self.variance_dec = 'None'
 		self.type = ppl_type
 
 	def update(self,ppl):
@@ -57,6 +63,7 @@ class Stats:
 			return s
 		else:
 			return "Empty"
+		
 class Triggers:
 	def __init__(self,PPL):
 		## "normal" "weak" "strong" "selective"
@@ -80,7 +87,6 @@ class Population:
 		self.model = model
 		self.compare = compare
 		self.ppl_size = model.parameters.ppl_size
-		self.ppl_stats = None
 
 		self.child_set_size = model.parameters.child_set_size
 		self.crossover_set_size = model.parameters.crossover_set_size
@@ -91,30 +97,22 @@ class Population:
 		self.child_parameter_stats = child_parameter_stats
 		self.crossover_parameter_stats = crossover_parameter_stats
 
-		self.child_stats = None
-		self.crossover_stats = None
-
 		self.child_set = None
 		self.crossover_set = None
 
 		self.generate_population()
 
-	def set_stats(self):
-		if self.use_stats:
-			self.update_ppl_stats()
-			self.update_child_stats()
-			self.update_crossover_stats()
-
 	## population
 	def generate_population(self):
 		temp = []
-		for i in range(self.ppl_size):
-			temp.append(virus(model=self.model, make_as = "initial", initial_parameter_stats=self.initial_parameter_stats ,use_fitness=self.use_fitness,child_parameter_stats=self.child_parameter_stats))
+		n=self.ppl_size
+		while n > 0:
+			v=virus(model=self.model, make_as = "initial", initial_parameter_stats=self.initial_parameter_stats ,use_fitness=self.use_fitness,child_parameter_stats=self.child_parameter_stats)
+			if constrains(v.var_decision,v.var_objective,self.model):
+				temp.append(v)
+			n-=1
+			
 		self.ppl = temp
-
-	def update_ppl_stats(self):
-		if self.use_stats:
-			self.ppl_stats = Stats(use_stats=self.use_stats, ppl = self.ppl,ppl_type="Population")
 			
 
 
@@ -126,12 +124,6 @@ class Population:
 
 		self.child_set = PPL_CHILD_SET
 
-	def update_child_stats(self):
-		if self.use_stats:
-			self.child_stats = Stats(use_stats=self.use_stats, ppl = self.child_set,ppl_type="Child")
-
-
-
 	## 	Crossover
 	def generate_crossover(self):
 		n=len(self.ppl)
@@ -140,25 +132,15 @@ class Population:
 			r1=np.random.randint(n)
 			r2=np.random.randint(n-1)+1
 			r2=(r1+r2)%n
-			PPL_crossover_set.append(virus(model=self.model, make_as = "crossover", use_fitness=self.use_fitness,parent1=self.ppl[r1], parent2 = self.ppl[r2], crossover_parameter_stats = self.crossover_parameter_stats))
-		temp=[]
-		for v in PPL_crossover_set:
+			v=virus(model=self.model, make_as = "crossover", use_fitness=self.use_fitness,parent1=self.ppl[r1], parent2 = self.ppl[r2], crossover_parameter_stats = self.crossover_parameter_stats)
 			if constrains(v.var_decision,v.var_objective,self.model):
-				temp.append(v)
+				PPL_crossover_set.append(v)
 			
-		if len(temp)>0:
-			self.crossover_set=temp
-
-	def update_crossover_stats(self):
-		if self.use_stats:
-			self.crossover_stats = Stats(use_stats=self.use_stats, ppl = self.crossover_set,ppl_type="Crossover")
-
-
-
-
-	def mutation(self,trigger):
-		pass
-
+		if len(PPL_crossover_set)>0:
+			self.crossover_set=PPL_crossover_set
+			#print("printing cs set")
+			#for v in self.crossover_set:
+				#print(constrains(v.var_decision,v.var_objective,self.model))
 
 	def calculat_fitness(self):
 		for v in self.ppl:
@@ -174,25 +156,80 @@ class Population:
 	def selection(self,trigger):
 		## handelig ppl
 		## selection sizes baised on trigger
-		selected_ppl_size=int(0.5*self.ppl_size)
+		"""selected_ppl_size=int(0.5*self.ppl_size)
 		self.ppl=self.sorting(self.ppl)[0:selected_ppl_size]
 
 		## handeling child set
 		## how many to selctet from child set
 		selected_child_size=int(0.5*len(self.child_set))
-		self.ppl=self.sorting(self.ppl)[0:selected_child_size]
-			
+		self.ppl=self.sorting(self.ppl)[0:selected_child_size]"""
+
+		for i in range(len(self.ppl)):
+			v=[self.ppl[i]]+self.child_set[i*self.child_set_size:(i+1)*self.child_set_size]
+			self.ppl[i]=self.sorting(v)[0]
+
 		## handeling crossover set
 		## how many to selctet from crossover set
-		selected_crossover_size=int(0.5*len(self.child_set))
-		self.ppl=self.sorting(self.ppl)[0:selected_crossover_size]
+		if self.crossover_set !=None:
+			selected_crossover_size=max(1,int(0.5*len(self.crossover_set)))
+			self.crossover_set=self.sorting(self.crossover_set)[0:selected_crossover_size]
 
-		self.ppl=self.ppl+self.child_set+self.crossover_set
+		if self.crossover_set !=None:
+			self.ppl=self.ppl+self.crossover_set
+		if self.child_set != None:
+			self.ppl=self.ppl+self.child_set
+		self.ppl=self.sorting(self.ppl)[0:self.ppl_size]
 
-		pass
+	def vc_selection(self,trigger):
+
+		for i in range(len(self.ppl)):
+			v=[self.ppl[i]]+self.child_set[i*self.child_set_size:(i+1)*self.child_set_size]
+			self.ppl[i]=self.sorting(v)[0]
+
+		tppl=self.ppl+self.crossover_set
+		tppl=self.sorting(tppl)
+		preserv=int(0.5*self.ppl_size)+1
+		vc=vertex_cover(tppl[preserv:],self.model.hyper_parameters.min_distance)
+		k=[i in range(len(tppl[preserv:]))]
+		vc=list(set(k)-set(vc))
+		if len(vc) > 0:
+			self.ppl=tppl[0:preserv]
+			vc=sorted(vc)
+			for b in vc:
+				self.ppl.append(tppl[b+preserv])
 		
-		
-		
+			n= len(self.ppl)
+			if n <= self.ppl_size:
+				temp = []
+				m= self.ppl_size-n
+				while m > 0:
+					v=virus(model=self.model, make_as = "initial", initial_parameter_stats=self.initial_parameter_stats ,use_fitness=self.use_fitness,child_parameter_stats=self.child_parameter_stats)
+					if constrains(v.var_decision,v.var_objective,self.model):
+						temp.append(v)
+					m-=1
+				self.ppl+=temp
+			else:
+				self.ppl=self.sorting(self.ppl)[0:self.ppl_size]
+
+		else:
+			self.generate_population()
+			self.ppl[0:preserv]=tppl[0:preserv]
+
+	def vc_selection2(self,trigger):
+
+		for i in range(len(self.ppl)):
+			v=[self.ppl[i]]+self.child_set[i*self.child_set_size:(i+1)*self.child_set_size]
+			self.ppl[i]=self.sorting(v)[0]
+
+		tppl=self.ppl+self.crossover_set
+		tppl=self.sorting(tppl)
+		preserv=int(0.5*self.ppl_size)+1
+		vc=vertex_cover(tppl,self.model.hyper_parameters.min_distance)
+		k=[i in range(len(tppl))]
+		vc=list(set(k)-set(vc))
+		for b in vc:
+			self.ppl.append(tppl[b])
+
 
 	## Using counting pereto optima
 	def defalt_compare(self,v1,v2):
@@ -226,11 +263,4 @@ class Population:
 		if self.crossover_set != None:
 			for v in self.crossover_set:
 				s+=v.__repr__()
-		
-		if self.ppl_stats.used:
-			s+=self.ppl_stats.__repr__()
-		if self.child_stats.used:
-			s+=self.child_stats.__repr__()
-		if self.crossover_stats.used:
-			s+=self.crossover_stats.__repr__()
 		return s

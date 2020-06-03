@@ -12,11 +12,16 @@ class virus:
 			# numpy arrays
 			self.var_decision = decision_space.random_solution(initial_parameter_stats,model)
 			self.var_objective = objective_space.function(self.var_decision,model)
+			itter_max = model.parameters.itter_max
+		
 			## looping until constrains are satisfied
 			while not constrains(self.var_decision,self.var_objective,model):
 				self.var_decision = decision_space.random_solution(initial_parameter_stats,model)
 				self.var_objective = objective_space.function(self.var_decision,model)
-
+				itter_max=-1
+				if itter_max < 0:
+					break
+			#print(itter_max)
 			self.dimension = [self.var_decision.shape,self.var_objective.shape]
 
 			self.grad_decision = decision_space.random_gradient(initial_parameter_stats,model)
@@ -30,10 +35,16 @@ class virus:
 			self.var_decision, self.grad_decision  = decision_space.child_solution(parent,child_parameter_stats,model)
 			self.var_objective = objective_space.function(self.var_decision,model)
 			## looping until constrains are satisfied
+			itter_max = model.parameters.itter_max
+			
 			while not constrains(self.var_decision,self.var_objective,model):
 				self.var_decision, self.grad_decision  = decision_space.child_solution(parent,child_parameter_stats,model)
 				self.var_objective = objective_space.function(self.var_decision,model)
-
+				itter_max-=1
+				if itter_max < 0:
+					self.var_decision, self.grad_decision = parent.var_decision, parent.grad_decision
+					break
+			#print(itter_max)
 			self.dimension = [self.var_decision.shape,self.var_objective.shape]
 
 			self.grad_objective = objective_space.gradient(self.var_decision,self.var_objective,self.grad_decision,model)

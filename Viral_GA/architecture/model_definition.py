@@ -5,10 +5,12 @@ import numpy as np
 ##########################
 
 class hyper_parameters:
-	def __init__(self,lamb,grad_epsilon,step_epsilon,timeline=None):
+	def __init__(self,lamb,local_epsilon,step_epsilon,min_distance,grad_epsilon=1e-2,timeline=None):
 		self.lamb = lamb
 		self.grad_epsilon = grad_epsilon
 		self.step_epsilon = step_epsilon
+		self.local_epsilon=local_epsilon
+		self.min_distance = min_distance
 		self.timeline = timeline
 		""" timeline variable is array of size generations decides how 
 			the user want the timeline to be lower the value of timeline 
@@ -23,12 +25,13 @@ class hyper_parameters:
 		return s
  
 class parameters:
-	def __init__(self,ppl_size,use_stats, generations, child_set_size,crossover_set_size):
+	def __init__(self,ppl_size,use_stats, generations, child_set_size,crossover_set_size,itter_max=100):
 		self.ppl_size = ppl_size
 		self.use_stats = use_stats 
 		self.generations = generations
 		self.child_set_size = child_set_size
 		self.crossover_set_size = crossover_set_size
+		self.itter_max=itter_max
 
 	def __repr__(self):
 		s="PARAMETERS  \n"
