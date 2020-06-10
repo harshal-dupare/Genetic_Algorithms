@@ -6,16 +6,16 @@ import matplotlib.animation
 from solution.population import Population, Triggers
 import time
 
-params = parameters(ppl_size=80,
+params = parameters(ppl_size=100,
 					use_stats=True, 
-					generations=1000, 
-					child_set_size=1, 
+					generations=100, 
+					child_set_size=2, 
 					crossover_set_size=30,
 					itter_max=2000)
-hparams = hyper_parameters(lamb = 0.9,
-					step_epsilon = 0.05,
-					local_epsilon = 0.085,
-					min_distance=0.085,
+hparams = hyper_parameters(lamb = 5e-1,
+					step_epsilon = 5e-2,
+					local_epsilon = 8.5e-2,
+					min_distance=1.35e-1,
 					grad_epsilon=1e-2)
 """
 # TNK
@@ -83,16 +83,16 @@ plt.ylim(0,np.pi)
 # DEB boyndary
 plt.xlim(0,1)
 plt.ylim(1,12)
-
-DEB_x1=0.1+(1-0.1)*np.arange(0,501)/500
+rang = 500
+DEB_x1=0.0001+(1-0.0001)*np.arange(0,rang+1)/rang
 DEB_y1=(7-9*DEB_x1)/DEB_x1
 DEB_y2=(9*DEB_x1/DEB_x1)
 DEB_y3=6/DEB_x1
 DEB_y4=1/DEB_x1
-plt.plot(DEB_x1, DEB_y1)
-plt.plot(DEB_x1, DEB_y2)
-plt.plot(DEB_x1, DEB_y3)
-plt.plot(DEB_x1, DEB_y4)
+plt.plot(DEB_x1, DEB_y1,'k')
+plt.plot(DEB_x1, DEB_y2,'k')
+plt.plot(DEB_x1, DEB_y3,'k')
+plt.plot(DEB_x1, DEB_y4,'k')
 # DEB boyndary
 
 plt.draw()
@@ -122,6 +122,7 @@ for i in range(model.parameters.generations):
 		sc.set_offsets(np.c_[x,y])
 		ax.set_title('Generation = ' +str(i))
 		fig.canvas.draw_idle()
+		plt.savefig(str(time.time())+'_generagtion_'+str(i)+'.png')
 		plt.pause(0.1)
 
 

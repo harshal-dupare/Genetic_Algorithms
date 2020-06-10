@@ -205,7 +205,6 @@ def crossover_solution(parent1,parent2,crossover_parameter_stat,model):
 def child_solution(parent,child_parameter_stat,model):
 
 	if child_parameter_stat == None:
-
 		shape = parent.var_decision.shape
 		u = np.random.normal(0,1,shape)  # an array of d normally distributed random variables
 		norm=np.sum(u**2) **(0.5)
